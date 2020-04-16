@@ -1,3 +1,5 @@
+import numpy as np
+
 class compressable_image:
     def __init__(self, image):
         
@@ -7,13 +9,12 @@ class compressable_image:
         self.image = []
         
     def unroll_image(self, original_image):
-        new_image = []
-        for i, row in enumerate(original_image):
-            for j, pixel in enumerate(row):
-                new_image.append(pixel)
+        
+        new_image = np.asarray(original_image).ravel()
+        
         return new_image
     
-    def k_means_compression(self, K=16, iteration_limit = 10):
+    def k_means_compression(self, K=16, iteration_limit=10):
         
         # ||x-mu||**2
         euclidean_distance = lambda x: np.inner(x,x)
@@ -64,3 +65,9 @@ class compressable_image:
                     self.image[-1][-1].append(self.unrolled_image[ind][d])
                 ind += 1
         self.image = np.asarray(self.image).astype(np.uint8)
+
+    #def normalize(self):
+    #    
+    #    
+    #    
+    #def pca(self, var_ret=99):
